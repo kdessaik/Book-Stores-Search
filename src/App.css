@@ -48,5 +48,9 @@ span{
   width: 10%;
   margin-bottom: 2%;
 }
+.empty{
+  font-weight: bold;
+  color:red
+}
 
 
