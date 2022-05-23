@@ -95,7 +95,7 @@ console.log("dessai")
             (book)=>{console.assert('error',book)
               
               if(book.volumeInfo.imageLinks.thumbnail===''){
-                console.log('display')
+                
               }
                else {return(
                 <div className='container'id='container1'>
