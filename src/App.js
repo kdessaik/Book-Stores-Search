@@ -42,25 +42,31 @@ function App() {
     async function FetchingData(){
     
      setIsLoading(true)
-        await  axios.get("https://www.googleapis.com/books/v1/volumes?q="+book+"&key="+apiKey+"&maxResults=5")
-        
+        await fetch("https://www.googleapis.com/books/v1/volumes?q="+book+"&key="+apiKey+"&maxResults=5")
+   .then((response)=>{return response.json()})
+        .then(
+     
+      (data)=>{
+     
+console.log(data)
    
-   .then( (data)=>{
-
-   
-     if(data.data.totalItems===0){
+     if(data.totalItems===0){
       setEmpty('No Book found!')
      }
-     else if (result==undefined){
-console.log("dessai")
+     else if (data.items==undefined){
+
      }
      else{
-      
-
-       setResult(data.data.items)}
+       setResult([...data.items])}
        
         
       }) 
+      .catch((err) => {
+        if(err.TypeError==undefined){
+          console.log(err)
+          setEmpty('Check your Internet')
+        }
+      });
   
         
     
@@ -88,14 +94,16 @@ console.log("dessai")
       <div className='container' >
         <ol className='section1'>
           { 
-            isLoading ? (<img src='https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921' />) :(
+  
             
           result.map(
+           
              
-            (book)=>{console.assert('error',book)
+            (book)=>{
               
-              if(book.volumeInfo.imageLinks.thumbnail===''){
-                
+              if(book.volumeInfo.authors===undefined){
+                book.volumeInfo.authors=["no author"]
+               
               }
                else {return(
                 <div className='container'id='container1'>
@@ -106,7 +114,7 @@ console.log("dessai")
                 <img src={book.volumeInfo.imageLinks.thumbnail} alt={book.title}/>
                 
                 </li>
-                <p>Author : <span>{book.volumeInfo.authors.map((e)=>{return e})}</span></p>
+                <p>Author : <span>{ book.volumeInfo.authors.map((e)=>{return e})}</span></p>
             <p> Published by <span>{book.volumeInfo.publisher}</span></p>
               <a className='btn btn-primary' href={book.volumeInfo.previewLink}>Read This Book</a> 
               
@@ -116,12 +124,12 @@ console.log("dessai")
               )}
             }
           )
-          ) }
+           }
           
           </ol>
        
       </div>
-      <div className='empty'>{empty}</div>
+      <div className='empty'>{empty.toLocaleUpperCase()}</div>
     </div>
   );
 }
