@@ -42,7 +42,7 @@ function App() {
     async function FetchingData(){
     
      setIsLoading(true)
-        await fetch("https://www.googleapis.com/books/v1/volumes?q="+book+"&key="+apiKey+"&maxResults=5")
+        await fetch("https://www.googleapis.com/books/v1/volumes?q="+book+"&key="+apiKey+"&maxResults=7")
    .then((response)=>{return response.json()})
         .then(
      
@@ -74,7 +74,7 @@ console.log(data)
     } FetchingData()
 
   }}
-  
+
   
   return (
     <div className="App">
@@ -100,18 +100,22 @@ console.log(data)
            
              
             (book)=>{
-              
-              if(book.volumeInfo.authors===undefined){
+              if(book.volumeInfo.authors==undefined){
                 book.volumeInfo.authors=["no author"]
                
+              }
+              else if( book.volumeInfo.imageLinks==undefined){
+                book.volumeInfo.imageLinks={
+                  smallThumbnail:'no image',
+                  thumbnail:'no image'}
               }
                else {return(
                 <div className='container'id='container1'>
                 
-              <li key={book.id.toString()} >
+              <li  >
               <h4>{book.volumeInfo.title}</h4>
                 
-                <img src={book.volumeInfo.imageLinks.thumbnail} alt={book.title}/>
+                <img src={book.volumeInfo.imageLinks.smallThumbnail} alt='Loading...'/>
                 
                 </li>
                 <p>Author : <span>{ book.volumeInfo.authors.map((e)=>{return e})}</span></p>
