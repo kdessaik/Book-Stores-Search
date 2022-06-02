@@ -1,7 +1,10 @@
 .App {
   text-align: center;
-}
 
+}
+*{
+  width: 100%;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -42,6 +45,8 @@ span{
   color: blue;
 }
 #container1{
+  display: flex;
+  flex-direction: row;
   border-right: #282c34 solid;
 }
 .mt-10>.container>img{
@@ -51,6 +56,9 @@ span{
 .empty{
   font-weight: bold;
   color:red
+}
+.btn-danger{
+  width: 10%;
 }
 
 

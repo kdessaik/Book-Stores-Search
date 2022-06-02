@@ -117,10 +117,10 @@ console.log(data)
                 
                 <img src={book.volumeInfo.imageLinks.smallThumbnail} alt='Loading...'/>
                 
-                </li>
+                
                 <p>Author : <span>{ book.volumeInfo.authors.map((e)=>{return e})}</span></p>
             <p> Published by <span>{book.volumeInfo.publisher}</span></p>
-              <a className='btn btn-primary' href={book.volumeInfo.previewLink}>Read This Book</a> 
+              <a className='btn btn-primary' href={book.volumeInfo.previewLink}>Read This Book</a> </li>
               
                 </div>
 
